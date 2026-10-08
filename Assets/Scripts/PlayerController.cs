@@ -14,11 +14,12 @@ public class PlayerController : MonoBehaviour
     private InputAction _move;
     private InputAction _run;
     private InputAction _jump;
-    
+    AudioSource jumpSound;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<Collider2D>();
+        jumpSound = GetComponentInChildren<AudioSource>();
         acceleration = 0;
 
         _move = InputSystem.actions.FindAction("Move");
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour
         {
             startJump = false;
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            jumpSound.Play(); //dwoooing
         }
         if (!playerCollider.IsTouchingLayers(groundLayer))
         {
